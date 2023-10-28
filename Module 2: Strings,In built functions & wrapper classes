@@ -1,1 +1,875 @@
+1.  /*Given a string, ,split the string into individual string tokens .
+Then, print the number of tokens, followed by each token on a new line.
+
+Explore split function before solving:
+you need to generate the tokens based on the following characters only: (if any other character is present in string, they should be treated as normal characters.)
+ '!', '?', ',', '.', '_', "'", or '@'.
+
+Note: if there are any trailing or leading whitespaces, remove them.
+
+Test case examples:
+---------------------------
+case=t1
+input=HELLO , HOW ARE YOU?                                     
+output=                                                     
+Total Number of Tokens: 4                                                                         
+HELLO                                                                           
+HOW                                                                             
+ARE                                                                             
+YOU                                                                             
+
+case=t2
+input=Hey there!What's up
+output=                                                      
+Total Number of Tokens: 5                                                                          
+Hey                                                                           
+there                                                                             
+What                                                                           
+s                                                                            
+up 
+
+case=t3
+fail message="hidden test case"
+input=   caution!you are@ignoring_whitespaces
+output=
+Total Number of Tokens: 5   
+caution
+you
+are
+ignoring
+whitespaces
+
+case=t4
+input=arun_k@g!r!@,i'e.T?1661
+output=
+Total Number of Tokens: 8    
+arun
+k
+g
+r
+i
+e
+T
+1661
+
+case=t5
+input=arun#1234^&@griet
+output=
+Total Number of Tokens: 2
+arun#1234^&
+griet
+
+case=t6
+fail message="hidden test case"
+input=griwet$*()$%.college
+Total Number of Tokens: 2
+output=
+griwet$*()$%
+college
+
+
+PROGRAM:
+--------------------------
+import java.util.*;
+public class Solution {
+ 
+    public static void main(String args[])
+    {
+       Scanner sc = new Scanner(System.in);
+        String s1= sc.nextLine();
+       // s1=s1.trim();
+         String[] tokens = s1.split("[\\s!?,._'@]+");
+        System.out.println("Total Number of Tokens: "+ tokens.length);
+      /* for (String a : tokens)
+        {
+            System.out.println(a);
+        }
+          sc.close();*/
+          
+        List<String> list = Arrays.asList(tokens);
+         list.forEach(i -> {
+           System.out.println(i);
+        });
+    }
+}
+
+2. /*
+/*Write a Java program that reads an integer number (between 1 and 255) from the user and prints 
+the binary representation of the number. The answer should be printed as a String.
+
+Note: The output displayed should contain 8 digits and in case the returned String contains less than
+      8 characters, it should be padded with leading 0s(zeros), 
+
+For example, if the user enters the value 16, then the output should be
+ 00010000
+ 
+(Hint : You may use String.format() method for the expected output)
+Test Case Example:
+----------------------
+case=t1
+fail message="hidden test case"
+input= -1
+output= 
+Integer Number should be between 1 and 255 
+
+case=t2
+input=255
+output=
+11111111
+
+case=t3
+input=257
+output=
+Integer Number should be between 1 and 255 
+
+case= t4
+fail message="hidden test case"
+input= 64
+output=
+01000000 
+
+case=t5
+input=45
+output=
+00101101
+
+
+PROGRAM:
+----------------------------
+import java.util.Scanner;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int num = scan.nextInt();
+		if(1<=num && num<=255)
+		{
+		String output = String.format("%8s", Integer.toBinaryString(num)).replace(' ', '0');
+		System.out.println(output);	
+		}
+		else
+		{
+		    System.out.println("Integer Number should be between 1 and 255 ");	
+		}
+		}
+	}
+
+
+3. /*
+Write a method that takes as parameter 1 String. The entire string is in lowercase.
+
+If the string starts with f print Fizz. If the string ends with b return Buzz.
+If both the f and b conditions are true, return FizzBuzz. In all other cases, print the string unchanged.
+
+To understand the problem, Explore the charAt inbuilt function. 
+
+Test Case Examples:
+---------------------
+case=t1
+input=fire
+output=Fizz
+
+case=t2
+input=firebomb
+output=FizzBuzz
+
+case=t3
+input=bomb
+output=Buzz
+
+case=t4
+fail message="hidden test case"
+input=GRIET
+output=GRIET
+
+PROGRAM:
+-----------------------------
+import java.util.*;
+
+class Solution {
+    public static void Strings(String word) {
+        int c = word.length();
+        if (word.charAt(0) == 'f' && word.charAt(c - 1) == 'b')
+            System.out.println("FizzBuzz");
+        else {
+            if (word.charAt(0) == 'f')
+                System.out.println("Fizz");
+            else if (word.charAt(c - 1) == 'b')
+                System.out.println("Buzz");
+            else
+                System.out.println(word);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        Strings(input);
+        scanner.close();
+    }
+}
+
+4. /*
+/*Given a string and an integer n, print a new string made of n repetitions of the last n characters of the string. 
+You may assume that n is between 0 and the length of the string, inclusive. 
+
+input format: Read the string(String must include firstname and lastname only separated by space) followed by n indicating character count to be extracted from the string.
+
+To understand the question, Explore substring inbuilt function available in Java.
+
+Test Case Example:
+----------------------
+case=t1
+input=Virat Kohli 3
+output=hlihlihli
+
+case=t2
+input=ARUN KUMAR 5
+output=KUMARKUMARKUMARKUMARKUMAR
+
+case=t3
+input=GRIET College 1
+output=e
+
+case=t4
+fail message="hidden test case"
+input=arun kongi ck 2
+output=Input should have exactly 2 strings separated by a space
+
+case=t5
+input=griet training 8
+output=
+trainingtrainingtrainingtrainingtrainingtrainingtrainingtraining
+
+case=t6
+fail message="hidden test case"
+input=GRIET 3
+output=Input should have exactly 2 strings separated by a space
+
+
+
+PROGRAM:
+------------------------------------
+import java.util.*;
+
+public class Solution {
+
+	static String multiply(String str, int n) {
+		String rep = str.substring(str.length()-n);				//substring(beginindex)
+		String result = "";
+		
+		for(int i = 0; i < n; i++) 
+		{
+			result =result+rep;
+		}
+		return result;
+	}
+	
+	public static void main(String[] args){
+	     Scanner scan = new Scanner(System.in);
+	     String input=scan.nextLine();
+	     try
+	     {
+         String[] parts = input.split(" ");
+         String str = parts[0] + " " + parts[1];
+         int num = Integer.parseInt(parts[2]);
+	     System.out.println(multiply(str, num));
+	     }
+	    catch(Exception e){
+	        System.out.println("Error: Input should have exactly 2 strings separated by a space");
+	    }
+		scan.close();
+	}
+}
+
+
+5. Write a Java program to create a String object out of a character array.
+
+Input Format: Read 'n' number of characters to be created for array
+              In next Line, enter each characters separated by space.
+              In third line enter startindex and count on same line.
+              where startindex is the position from which the characters to be extracted.
+              count is the number of characters to be extracted from the startindex position.
+              
+Note: If the count exceeds the character array length, then print the following error message:
+"Array boundary exceeded"
+
+Test Case Example:
+----------------------
+case=t1
+input=5
+1 2 3 4 5
+1 3
+output=
+New String : 234
+
+case=t2
+fail message="hidden test case"
+input=4
+e t u i
+3 1
+output=
+New String : i
+
+case=t3
+input=7
+e g n 6 9 e z 
+4 4
+output=
+Error: Array boundary Exceeded
+
+case=t4
+input=6
+4 t u i k 7
+3 3
+output=
+New String : ik7 
+
+PROGRAM:
+--------------------------
+import java.util.*;
+
+
+public class Solution {
+
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        char a[]=new char[n];
+
+        for(int i=0;i<n;i++)
+        {
+           a[i]=s.next().charAt(0);
+        }
+        try{
+        int index=s.nextInt();
+        int length=s.nextInt();
+        String str = String.copyValueOf(a, index, length);
+        System.out.println("New String: " + str);
+        }
+        catch (Exception e) {
+            System.out.println("Error: Array Boundary Exceeded");
+        } 
+        
+}
+
+}
+
+6. Write a Java program to return the sum of the digits present in the given string. In the absence of digits, the sum is 0.
+Test Case Example:
+----------------------
+case=t1
+input= ab5c2d4ef12s
+output=                                              
+The sum of the digits in the string is: 14   
+
+case=t2
+input=abcdefg                                                                         
+output=The sum of the digits in the string is: 0
+
+case=t3
+input=g3r5i6e8t9   
+output=
+The sum of the digits in the string is: 31 
+
+case=t4
+fail message="hidden test case"
+input=sgd23bmn8bnm76    
+output=
+The sum of the digits in the string is: 26 
+
+case=t5
+input= 65432    
+output=  
+The sum of the digits in the string is: 20  
+
+
+PROGRAM:
+--------------------------------
+import java.util.*;
+
+public class Solution 
+{
+public static int sumOfDigits(String stng)       //make static and u can call without creating the object
+{
+  int l = stng.length();
+  int sum = 0;
+  for (int i = 0; i < l; i++) 
+  {
+    if (Character.isDigit(stng.charAt(i))) 
+	{
+      String tmp = stng.substring(i,i+1);
+      sum += Integer.parseInt(tmp);
+    }
+  }
+  return sum;
+}
+
+public static void main (String[] args)
+    {
+     // Solution s= new Solution();
+      Scanner scan = new Scanner(System.in);
+	  String str1=scan.nextLine();
+      System.out.println("The sum of the digits in the string is: "+sumOfDigits(str1));
+	  }
+}
+
+
+7. /*
+/*Write a Java program to create a new string after removing a character "t or T" from a given string. 
+This is except the first and last position of 't'.
+
+Test Case Example:
+----------------------
+case=t1
+input= Country 
+output=
+The new string is: Counry
+
+
+case=t2
+input=Statutory   
+output=
+The new string is: Sauory  
+
+case=t3
+input=12345
+output=
+The new string is: 12345
+
+case=t4
+fail message="hidden test case"
+input=java   
+output=
+The new string is: java
+
+case=t5
+fail message="hidden test case"
+input=talentt
+output=
+The new string is: talent
+
+case=t5
+input=talenTt
+output=
+The new string is: talent
+
+
+
+PROGRAM:
+------------------------------------
+import java.util.*;
+public class Solution
+{
+public String remove(String s) 
+{
+  String result = "";
+  int l = s.length();
+  for (int i = 0; i < l; i++)
+  {
+    char temp = s.charAt(i);
+    if ((i > 0 && i < l - 1 && (temp == 't' || temp == 'T'))==false)
+      result = result + temp;
+  }
+    return result;     
+}
+
+public static void main (String[] args)
+    {
+        Solution s= new Solution();
+         Scanner scan = new Scanner(System.in);
+	     String str1=scan.nextLine();
+      System.out.println("The new string is: "+s.remove(str1));
+	  }
+}
+
+
+8. /*
+/*Write a Java program to check whether the first instance of a given character is immediately 
+followed by the same character in a given string.
+
+Input Format: Read the string in first line.
+              In the next line read the character that u want to check if it appeared consecutively in thr string.
+
+Test Case Example:
+----------------------
+case=t1
+input=greet
+e
+output=
+The given character 'e' appears consecutively in the string 'greet'
+
+case=t2
+input=griet
+e
+output=No consecutive character present
+
+case=t3
+input=accommodation
+m
+output=
+The given character 'm' appears consecutively in the string 'accommodation'
+
+case=t4
+fail message="hidden test case"
+input=PARALLEL
+L
+output=
+The given character 'L' appears consecutively in the string 'PARALLEL'
+
+
+PROGRAM:
+----------------------------------
+import java.util.*;
+
+public class Solution {
+    boolean appeartwice(String s, char c) {
+        int i = s.indexOf(c);
+        if (i == -1) return false; 
+        if (i + 1 >= s.length()) return false; 
+        return s.substring(i + 1, i + 2).equals(String.valueOf(c));
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        Scanner scan = new Scanner(System.in);
+        
+        String str1 = scan.nextLine().trim();
+        char c = scan.next().charAt(0);
+        
+        if (s.appeartwice(str1, c)) {
+            System.out.println("The given character '" + c + "' appears consecutively in the string '" + str1 + "'");
+        } else {
+            System.out.println("No consecutive character present");
+        }
+    }
+}
+
+
+9. /*
+/*Write a Java program that reverses all odd-length words in a string.
+
+Input format: Read a string with spaces.
+output format: A single string with reversed data.
+
+
+Test Case Example:
+----------------------
+case=t1
+input=Arunkumar Thirupathi Agasthya
+output=
+ramuknurA Thirupathi Agasthya
+ 
+case=t2
+input=Griet college
+output=
+teirG egelloc
+
+case=t3
+input=I am learning java
+output=
+I am learning java
+
+case=t4
+fail message="hidden test case"
+input=798 arsenal
+output=897 lanesra
+
+PROGRAM:
+--------------------------
+import java.util.*;
+public class Solution {
+ public static void main(String[] args) {
+   
+    Scanner scan = new Scanner(System.in);
+	     String s=scan.nextLine();
+   System.out.println(test(s));
+ }
+
+ public static String test(String str)
+ {
+   String[] words = str.split(" ");
+   for (int i = 0; i < words.length; i++) 
+   {
+     if (words[i].length() % 2 != 0)
+     {
+       StringBuilder rev = new StringBuilder(words[i]);
+       words[i] = rev.reverse().toString();
+     }
+   }
+   return String.join(" ", words);
+ }
+}
+
+
+10.Initialize an integer Array with n elements.(elements can contain negative values) 
+
+Sort only certain element of the array based on the following indexes:
+start index: sort from the position of start index.
+end index: sort upto to end index - 1 i.e except the end index.
+
+Note: If the end Index exceeds the integer array length, then print the following error message:
+"Array boundary exceeded"
+
+Test Case Example:
+----------------------
+case=t1
+fail message="hidden test case"
+input=8
+3 1 7 90 21 13 55 89
+1
+9
+output=Error: Array boundary exceeded
+
+case=t2
+input=6
+6 5 4 3 2 1
+2
+5
+output=
+After sorting: [6, 5, 2, 3, 4, 1]
+
+case=t3
+input= 8                                                                               
+45 8 5 32 1 0 -3 5                                                              
+9
+output=
+Error: Array Boundary exceeded
+
+case=t4
+input=10
+8 1 2 6 8 5 3 1 43 80
+2 
+7
+output=
+After sorting: [8, 1, 2, 3, 5, 6, 8, 1, 43, 80]
+
+case=t5
+fail message="hidden test case"
+input=8
+1 2 7 8 23 12 90 34
+0
+8
+output=
+After sorting: [1, 2, 7, 8, 12, 23, 34, 90]
+PROGRAM:
+---------------------------
+import java.util.*;
+import java.lang.*;
+public class Solution {
+
+public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+        a[i]=s.nextInt();
+        }
+        try{
+            int start=s.nextInt(); 
+            int end=s.nextInt();
+		    Arrays.sort(a,start,end);                                 //parellelSort(array, startIndex, endIndex)
+		    System.out.print("After sorting: " + Arrays.toString(a));
+           }
+        catch (Exception e) {
+            System.out.println("Error: Array boundary exceeded");
+        } 
+    }
+}
+
+11. /*
+/*Write a Java program that removes a specified word from given text. Return the updated string.
+
+Input Format:
+Read the main string in first line
+Read the string tat needs to be removed from the main string.
+
+use replace and replaceAll functions to achieve the desired result.
+
+Output Format: print the updated string after removing the specified string.
+
+Test Case Example:
+----------------------
+case=t1
+input=griet Training                                                              
+ing 
+output=
+griet Train 
+ 
+case=t2
+Fail message="Hidden test case"
+input=griet
+t
+output=
+grie
+
+case=t3
+input=college
+ege
+output=
+coll
+
+PROGRAM:
+--------------------------
+import java.util.Scanner;   
+ public class Solution {
+   public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);   
+    String text = in.nextLine().trim();
+    String word = in.nextLine().trim();
+    System.out.println(test(text,word));
+  }
+  
+ public static String test(String text, String word) 
+  	{
+		String result = text.replace(word, "");
+		//result = result.replaceAll("\\s+", " ");
+		return result;
+  }  
+}
+
+12. Write a Java program to count the number of characters(any character except '*')
+that occur more than twice in a given string.
+
+Input format:
+Read a String from input
+
+Explanation:
+initialize variable count to '0'.
+Check length of the String greater than '0' in while loop,
+set the duplicates of selected character by ', ' by using replaceAll method  to mark them as visited.
+if the length of selected character with rest of the characters present in the string is greater than 2 
+then increases the count by 1
+return the count.
+
+Output Format:
+Print Number of duplicate characters in the String (Occurs more than twice): 0
+
+Test Case Example:
+----------------------
+case=t1
+input=griet
+output=
+Number of duplicate characters in the String: 0
+ 
+case=t2
+input=javaclass
+output=
+Number of duplicate characters in the String: 1
+
+case=t3
+fail message="hidden test case"
+input=abbacdbabcc
+output=
+Number of duplicate characters in the String: 3
+
+case=t4
+input= COOK book                                                          
+Output=
+Number of duplicate characters in the String: 0
+
+case=t5
+fail message="hidden test case"
+input=grietcollege
+output=
+Number of duplicate characters in the String: 1
+
+case=t6
+input=@1@%@5#&2##
+output=
+Number of duplicate characters in the String: 2
+
+case=t7
+fail message="hidden case"
+input=super*
+output=Error: Star character is not allowed
+
+PROGRAM:
+--------------------------
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        try{
+        String t = s.nextLine().trim();
+        System.out.println("Number of duplicate characters in the String: " + morethantwice(t));
+    }catch(Exception e){
+        System.out.println("Error: Star character is not allowed");
+    }
+}
+
+    public static int morethantwice(String t) {
+        int c = 0;
+        while (t.length() > 0) {
+            if (t.length() - t.replaceAll(t.charAt(0)+"", "").length() > 2)   //charAt(0)+"" is to convert each character to string since, replaceAll works with only strings
+            {
+                c++;
+            }
+            t = t.replaceAll(t.charAt(0) + "", "");
+        }
+        return c;
+    }
+}
+
+13. /*
+/*A string is created by using another string's letters. Letters are case sensitive.
+Write a Java program that checks the letters of the second string are present in the first string.
+print true if present otherwise false.
+
+Input format: Read two strings separated by space.. Note within each string there should not be space.
+
+Test Case Example:
+----------------------
+case=t1
+input=labs computercenterlabs    
+output=
+false 
+
+case=t2
+Fail message="Hidden Test case"
+input=griet moodle
+output=
+false
+
+case=t3
+input=Practice A
+output=
+false                                                                            
+   
+case=t4
+input=ServiceBatchA BatchA
+output=true
+
+
+PROGRAM:
+--------------------------
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String str = in.nextLine().trim();
+        String [] parts = str.split(" ");
+        String first=parts[0];
+        String second=parts[1];
+        System.out.println(test(first, second));
+    }
+
+    public static boolean test(String first, String second) {
+        if (second.length() > first.length())
+            return false;
+        if (second.isEmpty())
+            return false;
+        for (int i = 0; i < second.length(); i++) {
+               if (!first.contains(String.valueOf(second.charAt(i))))
+                return false;
+        }
+        return true;
+    }
+}
 
