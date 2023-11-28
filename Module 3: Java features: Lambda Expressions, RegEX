@@ -1,1 +1,797 @@
+1. Write a Java program to implement a lambda expression to find the maximum and minimum values in a list of integers.
+
+
+Test Case Example:
+----------------------
+case=t1
+input= 4
+9 36 -32 0 
+output= [9, 36, -32, 0]
+Maximum value: 36
+Minimum value: -32
+
+case=t2
+input=0
+output=
+[]
+Maximum value: 0
+Minimum value: -1
+
+case=t3
+input=
+1
+6
+output=
+[6]
+Maximum value: 6
+Minimum value: 6
+
+case=t4
+input= 0
+output=
+[]
+Maximum Value: 0
+Minimum Value: -1
+
+
+PROGRAM:
+------------------------------
+import java.util.*;
+public class Solution {
+    
+    public static void main(String[] args) {
+        int n;
+        ArrayList<Integer> list = new ArrayList<>();
+        int temp;
+      
+        Scanner s1 = new Scanner(System.in);
+        n = s1.nextInt();
+         for(int i = 0; i < n; i++) {
+            temp = s1.nextInt();
+            list.add(temp);
+         }
+
+        System.out.println(list);
+    
+        Optional<Integer> max = list.stream().max((x, y) -> x.compareTo(y));
+        Optional<Integer> min = list.stream().min((x, y) -> x.compareTo(y));
+
+        System.out.println("Maximum value: " + max.orElse(0));
+        System.out.println("Minimum value: " + min.orElse(-1));
+    }
+}
+
+
+2.  Write a Java program to implement a lambda expression to check if a given string is a palindrome.
+
+Test Case Example:
+----------------------
+case=t1
+input=madam
+output=
+madam is a palindrome? true
+
+case=t2
+input=ar77ra
+output=
+ar77ra is a palindrome? true
+
+case=t3
+Grade reduction=20%
+input=1254
+output=
+1254 is a palindrome? false
+
+case=t4
+fail message="hidden test case"
+input=5yigm45
+output=5yigm45 is a palindrome? false
+
+
+
+PROGRAM:
+------------------------------
+import java.util.Scanner;
+import java.util.function.Predicate;
+
+/*@FunctionalInterface
+public interface Predicate<T> {
+boolean test(T t);
+}*/
+
+public class Solution {
+  public static void main(String[] args) {
+    Predicate < String > palindrome = i -> {
+      String rev = new StringBuilder(i).reverse().toString();
+      return i.equals(rev);
+    };
+    Scanner sc =new Scanner(System.in);
+    String str = sc.nextLine();
+  
+    boolean res = palindrome.test(str);
+    System.out.println(str+ " is a palindrome? " + res);
+
+
+  }
+}
+
+
+3.  Find the length of the longest and shortest strings in a given arraylist.
+Implement the logic using lambda expression.
+explore the stream class of java 8 before solving.
+
+Input Format: Read '5' string names from the user one by one.
+
+
+Test Case Example:
+----------------------
+case=t1
+input= Virat Kohli
+Jasprit Bumrah
+K L Rahul
+Venkatesh Prasad
+Ishan Kishan
+output=
+Length of the longest string: 16
+Length of the smallest string: 9
+
+case=t2
+input=0
+134
+griet
+college
+T&P
+output=
+Length of the longest string: 7
+Length of the smallest string: 1
+
+case=t3
+fail message="Hidden test case"
+grade reduction=20%
+input=3456
+4544
+&(*&*
+dkngn
+cse
+output=
+Length of the longest string: 5
+Length of the smallest string: 3
+
+
+PROGRAM:
+--------------------------------
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;                                   //stream processes sequence of data.
+
+public class Solution {
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        Scanner sc=new Scanner(System.in);
+      
+       for (int i = 0; i < 5; i++) {
+            String input = sc.nextLine();
+            names.add(input);
+        }
+        
+        int maxLen = names.stream().mapToInt(s -> s.length()).max().orElse(0);
+
+        int minLen = names.stream()
+                .mapToInt(s -> s.length())
+                .min()
+                .orElse(0);
+
+        System.out.println("Length of the longest string: " + maxLen);
+        System.out.println("Length of the smallest string: " + minLen);
+    }
+}
+
+4. Write a Java program to separate consonants and vowels from a given string. ignore the case.
+
+Note: if the string contains numbers
+
+Test Case Example:
+----------------------
+case=t1
+fail message="hidden case"
+input= arunkumarKongi
+output=
+Vowels: auuaoi
+Consonants: rnkmrKng
+
+case=t2
+grade reduction=10%
+input=ARUNKUMAR1661
+output=
+The String should not contain numbers
+
+case=t3
+input=GRIET COLLEGE
+output=
+Vowels: IEOEE
+Consonants: GRT CLLG
+
+case=t4
+input=This is Java regular expression
+output=
+Vowels: iiaaeuaeeio
+Consonants: Ths s Jv rglr xprssn
+
+
+PROGRAM:
+-----------------------------
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        sc.close();
+
+        if (Checkfornumbers(input)) {
+            System.out.println("The String should not contain numbers");
+        } else {
+            String vowels = input.replaceAll("(?i)[^aeiou]", "");
+            String constants = input.replaceAll("(?i)[aeiou]", "");
+
+            System.out.println("Vowels: " + vowels);
+            System.out.println("Consonants: " + constants);
+        }
+    }
+
+    private static boolean Checkfornumbers(String input) {
+        return input.matches(".*\\d+.*");                             // .*:   .indicates any char, * indicates zero or more characters 
+    }                                                                                   //\\d+ any digit  + indicates one or more occurences.
+}
+
+
+/*input.matches(".*[^*&%$#@0-9].*");*/  //if input contains *&%$#@ or numbers raise error
+
+
+5. Calculate sum of all prime numbers in the given range 
+Input: enter two integer numbers separated by space.
+Hint: Explore Java Streams API, IntStream.rangeClosed function.
+
+Test Case Example:
+----------------------
+case=t1
+input= 100                                                                             
+200                                                                             
+output=Sum of prime numbers between 100 and 200: 3167 
+
+case=t2
+input=                                                    
+output=
+Sum of prime numbers between 1 and 5: 10                   1 5//sum is including start and end range   
+
+case=t3
+fail message="hidden case" 
+input= 
+10 20
+output=
+Sum of prime numbers between 10 and 20: 60
+
+case=t4
+input=
+20 10
+output=
+Sum of prime numbers between 20 and 10: 0
+
+case=t6
+input=2478 3566
+output=
+Sum of prime numbers between 2478 and 3566: 400310
+
+
+
+PROGRAM:
+-----------------------------
+import java.util.stream.IntStream;
+import java.util.*;
+
+public class Solution {
+    static List<Integer> ls = new ArrayList<>();
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int start = s.nextInt();
+        int end = s.nextInt();
+
+        // int SumofPrimes = IntStream.rangeClosed(start, end)
+        //         .filter(n -> isPrime(n))
+        //         .sum();
+        isPrime(start, end);
+        Integer SumofPrimes = ls.stream().mapToInt(Integer::intValue).sum();
+
+        System.out.println("Sum of prime numbers between " + start + " and " + end + ": " + SumofPrimes);
+    }
+
+    // sieve of eratosthenes
+    public static void isPrime(int s, int number) 
+    {
+      /* if (number <= 1)
+         {
+             return false;
+        }*/
+
+        boolean[] prime = new boolean[number + 1];
+        for (int i = 0; i <= number; i++)
+        {
+            prime[i] = true;
+        }
+
+        prime[0]=prime[1]=false;
+        
+        for (int p = 2; p * p <= number; p++) 
+        {
+            if (prime[p]) 
+            {
+                for (int i = p * p; i <= number; i += p)
+                {
+                    prime[i] = false;
+                }
+            }
+        }
+
+        for(int i = s; i <= number; i++) {
+            if(prime[i]) ls.add(i);
+        }
+    }
+}
+
+ 6. Implement a class named as Cricketers with the constructor parameters (name,age and rank)
+   Initilize getter and setter methods for the said class.
+   
+   Then sort the cricketers data based on any of the parameters name,age or rank.
+   if user enters any other parameter apart from above 3, print "invalid sort value."
+
+Input format: read the parameter value from the user (i,e name, age or rank)
+
+Hint: use the existing player details given in the program!!
+      sorting should be case insenstive.
+      use inbuilt sort function along with lambda expression for getting the desired result.
+     
+      
+Test Case Example:
+----------------------
+case=t1
+input=name
+output=
+name= K L Rahul, age=30, rank=8
+name= Rohit Sharma, age=33, rank=4
+name= sky, age=27, rank=9
+name= Virat Kohli, age=34, rank=6
+
+case=t2
+input=rank
+output=
+name= Rohit Sharma, age=33, rank=4
+name= Virat Kohli, age=34, rank=6
+name= K L Rahul, age=30, rank=8
+name= sky, age=27, rank=9
+
+case=t3
+grade reduction=10%
+fail message="hidden test case"
+input=age
+output=
+name=sky, age=27, rank=9
+name=K L Rahul, age=30, rank=8
+name=Rohit Sharma, age=33, rank=4
+name=Virat Kohli, age=34, rank=6
+
+case=t4
+input=id
+output=
+invalid sort value
+
+
+ 
+PROGRAM:
+-------------------------------------
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        List<cricketers> players = new ArrayList<>();
+        players.add(new cricketers("Virat Kohli", 34, 6));
+        players.add(new cricketers("Rohit Sharma",33, 4));
+        players.add(new cricketers("K L Rahul", 30, 8));
+        players.add(new cricketers("sky", 27, 9));
+        /*Person s1=new Person("sky",27,45);
+        players.add(s1);*/
+
+        Scanner s= new Scanner(System.in);
+        String str=s.next().trim();
+        Sortbyvalue(players, str);
+
+        for (cricketers p : players) {
+            System.out.println(p);
+        }
+    }
+    public static class cricketers {
+        private String name;
+        private int age;
+        private int rank;
+
+        public cricketers(String name, int age, int rank) {
+            this.name = name;
+            this.age = age;
+            this.rank = rank;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + name + ", age=" + age + ", rank=" + rank;
+        }
+    }
+    public static void Sortbyvalue(List<cricketers> list, String str) {
+        switch (str) {
+            case "name":
+                Collections.sort(list, (p1, p2) -> p1.name.compareToIgnoreCase(p2.getName()));
+                break;
+            case "age":
+                Collections.sort(list, (p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+                break;
+            case "rank":
+                Collections.sort(list, Comparator.comparingInt(cricketers::getRank));
+                break;
+            default:
+                System.out.println("Invalid sort value.");
+                System.exit(0);
+        }
+    }
+}
+
+
+ 7. Write a Java program to move all lower case letters to the front of a given word. 
+This will keep the relative position of all the letters (both upper and lower case) same.
+
+Test Case Example:
+----------------------
+case-=t1
+input=This is JavA
+output=
+his is avT  JA
+
+case=t2
+input=Arsenal FootBall Club                                                           
+output=
+rsenal ootall lubA FB C  
+
+case=t3
+grade reduction=10%
+fail message="hidden case"
+input=this is java
+output=
+this is java  
+
+case=t4
+input=JAVA
+output=JAVA
+
+
+PROGRAM:
+--------------------------------------
+import java.util.*;
+public class Solution {
+ 
+   public static void main(String[] args) {	   
+	   Scanner sc=new Scanner(System.in);
+	   String text=sc.nextLine().trim();
+		System.out.println(validate(text));
+	}
+
+   public static String validate(String text) {
+        return text.replaceAll("[A-Z]", "") + text.replaceAll("[a-z]", "");
+   }
+     //   return text.replaceAll("[A-Z]", "") +" "+ text.replaceAll("[a-z]", "");
+}
+
+
+8. Write a Java program to validate a phone number using Regular Expression.
+
+Max length of the phone number is upto 10 digits.
+
+Following are valid phone number examples:
+------------------------------------------
+“(123)4567890", "1234567890", "123-456-7890", "(123)456-7890", (123)-456-7890
+
+Following are invalid phone numbers:
+-------------------------------------
+"(1234567890)","123)4567890", "12345678901", "(1)234567890", "(123)-4567890", "1", "12-3456-7890", "123-4567", "Hello world"};
+
+Regex explanation:
+------------------------
+\\d{10} - to match 10 digit number
+\\(\\d{3}\\): to matcn 3 digit number enclosed with brackets.
+(-)? - to check for optional hyphen.
+\\d{3}-\\d{4}: to check last 3 digits followed by hyphen and last 4 digits.
+\\d{3} : to check phone numbers without paranthesis.
+(-)? - to check for optional hyphen.
+
+Use the above regular expression patterns to get the desired output:
+
+
+Test Case Example:
+----------------------
+case=t1
+input=1234567890
+output=
+is valid phone number?: true
+
+case=t2
+input=123)456789012
+output=is valid phone number?: false
+
+case=t3
+input=9036564454
+output=
+is valid phone number?: true
+
+case=t4
+input=903-656-4454
+output=
+is valid phone number?: true
+
+case=t5
+input=(903)-656-4454
+output=
+is valid phone number?: true
+
+case=t6
+fail message="hidden test case"
+grade reduction=10%
+input=(1)234567890
+output=
+is valid phone number?: false
+
+
+PROGRAM:
+----------------------------------
+import java.util.*;
+public class Solution {
+ 
+   public static void main(String[] args) {	   
+	    Scanner sc=new Scanner(System.in);
+	    
+	    String text =sc.nextLine();
+		System.out.println("is valid phone number?: " +validate(text));
+	}
+   public static Boolean validate(String text) {
+         return text.matches("\\d{10}|\\(\\d{3}\\)(-)?\\d{3}-\\d{4}|\\d{3}(-)?\\d{3}-\\d{4}");
+}
+}
+
+
+9. Write a Java program to remove leading zeros from a given IP address using reg expression.
+
+input format: enter the ip address as string. and remove all leading zeroes in each octet of ip address.
+if ip address is ending with dot(.) remove the dot as well.
+
+Hint: Explore positive lookbehind and negative lookahead assertion concepts in java regular expression.
+
+Test Case Example:
+----------------------
+case=t1
+input=012.101.016.00003.
+output=
+12.101.16.3
+
+case=t2
+input=000.0000.000.0000.
+output=
+0.0.0.0
+
+case=t3
+input=175.010.00000012.2030                                                           
+output=
+175.10.12.2030  
+
+case=t4
+input=12.13.14.50.
+output=
+12.13.14.50
+
+case=t5
+grade reduction=10%
+fail message="Hidden case"
+input=175.00001.12.203000.
+output=
+175.1.12.203000
+
+PROGRAM:
+--------------------------------
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine().trim();
+        System.out.println(validate(input));
+    }
+
+    public static String validate(String ip) {
+        String res = ip.replaceAll("(?<=^|\\.)0+(?!\\.|$)", "");
+
+        if (res.endsWith(".")) {
+            res= res.substring(0, res.length() - 1);
+        }
+
+        return res;
+    }
+}
+
+
+/*The ^ here ensures that leading zeros are only matched if they are at the start of the string or after a period.
+(?!\\.|$): makes sure zeroes not matched if zeroes are followed by either dot or end of the string.
+The $ here represents the end of the string.
+*/
+
+10. Find if a given phone number is valid jio phone number or valid indian phone number or
+not using regular expression. 
+
+conditions:
+----------------------
+Valid indian phone numbers are prefixed with +91 and must include excatly 10 digits after the +91.
+Assume: Valid Jio numbers begin with 66 after +91.
+
+
+Test Case Example:
+----------------------
+case=t1
+input= +917019572678
+output= Valid Indian Phone Number
+
+case=t2
+input=+817038598342
+output= Invalid Phone Number
+
+case=t3
+input=+91888349016534
+output= Invalid Phone Number
+
+case=t4
+grade reduction=10%
+fail message="hidden test case"
+input=+7189375989123
+output= Invalid Phone Number
+
+case=t5
+input= +916657812390
+output= Valid Jio Phone Number
+
+case=t6
+input= +816657812390
+output= Invalid Phone Number
+
+case=t7
+grade reduction=10%
+fail message="hidden case"
+input= +917019045555
+output= Valid Indian Phone Number
+
+PROGRAM:
+----------------------------
+import java.util.Scanner;
+import java.util.regex.*;
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String num = sc.nextLine().trim();
+        
+        IndianNumber(num); 
+        
+        sc.close(); 
+    }
+
+    public static void IndianNumber(String num) {
+        String p = "^(\\+91(66)?\\d{8}|\\+91\\d{10})$";
+    
+        if (Pattern.matches(p, num)) {
+            if (num.startsWith("+91")) {
+                if (num.startsWith("+9166")) {
+                    System.out.println("Valid Jio Phone Number.");
+                } else {
+                    System.out.println("Valid Indian Phone Number.");
+                }
+            }
+        } else {
+            System.out.println("Invalid Phone Number.");
+        }
+    }
+}
+
+
+11. Write java program to check if the list of strings contains all lowercase, uppercase or mixed case strings.
+
+input format: enter the strings one after the other until user presses Exit (case insensitive)
+
+Test Case Example:
+----------------------
+case=t1
+input=
+This is Java
+java
+JAVA programming
+exit
+output=
+The list contains mixed case strings.
+
+case=t2
+input=
+JAVA
+PROGRAMMING
+GRIET COLLEGE
+EXIT
+output=
+All strings are in UPPERCASE.
+
+case=t3
+input=
+hi guys
+let us learn
+java programming
+Exit
+output=
+All strings are in lowercase.
+
+case=t4
+grade reduction=10%
+fail message="hidden case"
+input=this is 1234
+java programming
+exit
+output=All strings are in lowercase.
+
+
+PROGRAM:
+--------------------------
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Solution {
+    public static void main(String[] args) {
+        List<String> stringList = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
+            stringList.add(input);
+        }
+        scanner.close();
+
+        checkCase(stringList);
+    }
+
+    public static void checkCase(List<String> stringList) {
+        long uppercaseCount = stringList.stream().filter(s -> s.equals(s.toUpperCase())).count();
+        long lowercaseCount = stringList.stream().filter(s -> s.equals(s.toLowerCase())).count();
+
+        if (uppercaseCount == stringList.size()) {
+            System.out.println("All strings are in UPPERCASE.");
+        } else if (lowercaseCount == stringList.size()) {
+            System.out.println("All strings are in lowercase.");
+        } else {
+            System.out.println("The list contains mixed case strings.");
+        }
+    }
+}
+
+
 
