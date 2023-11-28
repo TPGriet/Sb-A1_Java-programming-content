@@ -1,1 +1,1738 @@
+1. The class needs three fields (instance variables) with the names firstName, lastName of type String and age of type int. 
+Write the following methods (instance methods):
+
+*Method named getFirstName without any parameters, it needs to return the value of the firstName field.
+*Method named getLastName without any parameters, it needs to return the value of the lastName field.
+*Method named getAge without any parameters, it needs to return the value of the age field.
+*Method named setFirstName with one parameter of type String, it needs to set the value of the firstName field.
+*Method named setLastName with one parameter of type String, it needs to set the value of the lastName field.
+*Method named setAge with one parameter of type int, it needs to set the value of the age field. If the parameter is less than 0 or greater than 100, it needs to set the age field value to 0.
+*Method named isTeen without any parameters, it needs to return true if the value of the age field is greater than 12 and less than 20, otherwise, return false.
+*Method named getFullName without any parameters, it needs to return the full name of the person.
+    *In case both firstName and lastName fields are empty, Strings return an empty String.
+    *In case lastName is an empty String, return firstName.
+    *In case firstName is an empty String, return lastName.
+    
+To check if s String is empty, use the method isEmpty from the String class. 
+For example, firstName.isEmpty() returns true if the String is empty 
+
+Test case examples:
+----------------------
+case=t1
+input=abhishek
+reddy 
+56
+output=
+Full Name: abhishek reddy
+Age: 56
+Is Teen: false
+
+case=t2
+input=Sonam 
+khan
+15
+output=
+Full Name: Sonam Khan
+Age: 15
+Is Teen: true
+
+case=t3
+input=virat 
+kohli
+33
+output=
+Full Name: virat kohli
+Age: 33
+Is Teen: false
+
+case=t4
+input=
+kumar
+32
+output=Full Name: kumar
+Age: 32
+Is Teen: false
+
+case=t5
+grade reduction=10%
+fail message="hidden case"
+input=
+ARUN
+
+32
+output=
+Full Name: ARUN
+Age: 32
+Is Teen: false
+
+
+case=t6
+input=
+45
+output=
+Full Name: Name Data missing
+Age: 45
+Is Teen: false
+
+case=t7
+input=arun
+ck
+-56
+output=
+Full Name: arun ck
+Age: 0
+Is Teen: false
+
+
+PROGRAM:
+--------------------------------
+import java.util.Scanner;
+
+public class Solution {
+    private String firstName;
+    private String lastName;
+    private int age; 
+    
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+    
+    public void setFirstName(String fName) {
+        this.firstName = fName;
+    }
+
+    public void setLastName(String lName) {
+        this.lastName = lName;
+    }
+
+    public void setAge(int age) {
+        
+        if(age > 100 || age < 0) {
+            this.age = 0;
+        }
+        else { 
+            this.age = age;
+        }
+    }
+    
+    public boolean isTeen() {
+        return this.age > 12 && this.age < 20;
+    }
+
+    public String getFullName() {
+        if(firstName.isEmpty() && lastName.isEmpty()) {
+            return "Name Data Missing";
+        }
+        if(lastName.isEmpty()) {
+            return firstName;
+        }
+        if(firstName.isEmpty()) {
+            return lastName;
+        }
+        return firstName + " " + lastName;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String firstName = scanner.nextLine();
+
+        String lastName = scanner.nextLine();
+
+        int age = scanner.nextInt();
+
+        Solution person = new Solution();
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+        person.setAge(age);
+
+        System.out.println("Full Name: " + person.getFullName());
+        System.out.println("Age: " + person.getAge());
+        System.out.println("Is Teen: " + person.isTeen());
+
+        scanner.close(); 
+}
+}
+
+
+2.  Given the Class Named Author with the following information:
+Member variables : name,email and gender
+Parameterized Constructor is used to initialize the data members.
+
+The Class Template is given below:
+----------------------------------
+class Author 
+{
+    private String name, email;
+    private char gender;
+    
+    Author(String name, String email, char gender) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    @Override
+    public String toString() {
+        return "[Name: " + name + ", Email: " + email + ", Gender: " + gender + "]";
+    }
+}
+
+Note: Explore toString() method to display the output:
+------------------------------------------------------
+using toString() method of the Object class, we can return values of the object without writing the explicit display method.
+
+ Create a class Book inheriting the properties of the Author Class,
+Book class needs to have following members:
+
+Member variables : name (String), author (of the class Author), price (double)
+Parameterized Constructor: To initialize the variables
+U can use the super keyword to initialize the members of Author class.
+Getters and Setters for all the member variables.
+
+
+Input Format:
+-----------------
+You need to enter the input in the following order:
+Name of the Author
+Email Id
+Gender
+Book Name
+Price
+
+Note:
+-------------
+No need to Write Author class. Its already given in the server.
+You only need to implement the Book class. Read data and Access details of Author class and 
+Print the Information as Given in test cases.
+
+Test Case Example:
+---------------------
+
+case=t1
+input=Herbert Schildt
+Herb@HerbSchildt.com
+Male
+Java the complete reference 
+899.56
+output=
+Book Name: Java the complete reference
+Author: [Name: Herbert Schildt, Email: Herb@HerbSchildt.com, Gender: M]
+Price: 899.56
+
+case=t2
+input=Herbert Schildt
+Herb@HerbSchildt.com
+Male
+C++ Programming Cookbook
+500.54
+output=
+Book Name: C++ Programming Cookbook
+Author: [Name: Herbert Schildt, Email: Herb@HerbSchildt.com, Gender: M]
+Price: 500.54
+
+case=t3
+fail message="hidden test case"
+input=Herbert Schildt
+Herb@HerbSchildt.com
+Male
+Java The beginners Guide 9th edition
+700.45
+output=
+Book Name: Java The beginners Guide 9th edition
+Author: [Name: Herbert Schildt, Email: Herb@HerbSchildt.com, Gender: M]
+Price: 700.45
+
+
+PROGRAM:
+-------------------------------
+import java.util.*;
+class Book extends Author {
+    private String bookName;
+    private double price;
+
+    Book(String bookName, String authorName, String authorEmail, char authorGender, double price) {
+        super(authorName, authorEmail, authorGender);
+        this.bookName = bookName;
+        this.price = price;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Book Name: " + bookName + "\nAuthor: " + super.toString() + "\nPrice: " + price;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String authorName = scanner.nextLine();
+        String authorEmail = scanner.nextLine();
+        char authorGender = scanner.next().charAt(0);
+
+        scanner.nextLine();  
+
+        String bookName = scanner.nextLine();
+
+        double price = scanner.nextDouble();
+
+        Book book = new Book(bookName, authorName, authorEmail, authorGender, price);
+        System.out.println(book);
+        scanner.close();
+    }
+}
+
+
+3. Given the following class Address, Create a Person class with the member name and
+Address object. Initialize the Address members and name of person through constructor of Person.
+Include Appropriate getter method to access name of person, and print person name including address details.
+
+Input format: read name of the person, city, state and zipcode from the user.
+output as per the test cases given.
+
+//Hint: Create an Object of the Address class and initialize the data members.
+        Create an object of the Person class and initialize the name and Link address object to Person class.
+
+class Address {
+    private String street;
+    private String city;
+    private String state;
+    private String zipCode;
+
+    public Address(String city, String state, String zipCode) {
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+}
+
+Sample test case:
+-----------------
+case=t1
+fail message="Hidden Case"
+input=arun kumar
+hyderabad
+telangana
+500085
+output=
+Person Details:
+Name: arun kumar
+Address: hyderabad, telangana - 500085
+
+case=t2
+input=rakesh reddy
+bangalore
+karnataka
+560078
+output=
+Person Details:
+Name: rakesh reddy
+Address: bangalore, karnataka - 560078
+
+case=t3
+input=Akansha 
+Andhra pradesh
+vijaywada
+50235
+output=
+Person Details:
+Name: Akansha
+Address: Andhra pradesh, vijaywada- 50235
+
+case=t4
+input=chandra bushan
+gopal ganj
+bihar
+841428
+output=
+Person Details:
+Name: chandra bushan
+Address: gopal ganj, bihar - 841428
+
+
+PROGRAM:
+-------------------------------
+import java.util.*;
+
+class Person {
+    private String name;
+    private Address address;
+
+    public Person(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddressDetails() {
+        return "Name: "+name+"\nAddress: "+address.getCity()+ ", "+address.getState()+ " - "+address.getZipCode();
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+       // System.out.print("Enter the name of the person: ");
+        String name = scanner.nextLine();
+
+       // System.out.print("Enter the city: ");
+        String city = scanner.nextLine();
+
+       // System.out.print("Enter the state: ");
+        String state = scanner.nextLine();
+
+        //System.out.print("Enter the ZIP code: ");
+        String zipCode = scanner.nextLine();
+
+        Address address = new Address(city, state, zipCode);
+        Person person = new Person(name, address);
+
+        System.out.println("Person Details:");
+        System.out.println(person.getAddressDetails());
+
+        scanner.close(); 
+    }
+}
+
+
+4. Given an existing class Mobile.java. U need to create an association between Mobile.java
+and Person.java programs.
+
+Mobile.java is given below:
+-----------------------------
+class Mobile {
+    private String no;
+
+    public void setNo(String no) {
+        this.no = no;
+    }
+
+    public String getNo() {
+        return no;
+    }
+}
+
+U need to create a list of mobile numbers in Person.java along with person name and implement
+appropriate getter and setter methods to add mobilenumbers and display them.
+
+Input format: Read the person name and enter only 2 mobile numbers each on separate line.
+output format is as given in the following test cases:
+
+Test case examples:
+----------------------
+case=t1
+input=Arun kumar
+8665565569
+7021378904
+output=
+Arun kumar has following mobile numbers:
+8665565569
+7021378904
+
+case=t2
+input=arvind
+6756566775
+8903125789
+output=
+arvind has following mobile numbers:
+6756566775
+8903125789
+
+case=t3
+fail message="hidden case
+input=akash
+6756566775
+8903125789
+output=
+akash has following mobile numbers:
+6756566775
+8903125789
+
+
+PROGRAM:
+------------------------------------
+import java.util.*;
+class Persons {
+    private String name;
+    List<Mobile> numbers = new ArrayList<Mobile>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Mobile> getNumbers() {
+        return numbers;
+    }
+
+    public void addMobileDetails(Mobile m) {
+            numbers.add(m);
+        }
+    
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Persons p = new Persons();
+
+        //System.out.print("Enter the person's name: ");
+        String name = scanner.nextLine();
+        p.setName(name);
+
+        for (int i = 0; i < 2; i++) {
+            //System.out.print("Enter mobile number " + (i + 1) + ": ");
+            String mobileNumber = scanner.nextLine();
+            Mobile mobile = new Mobile();
+            mobile.setNo(mobileNumber);
+            p.addMobileDetails(mobile);
+        }
+
+        System.out.println(p.getName() + " has following mobile numbers:");
+        for (Mobile mobile : p.getNumbers()) {
+            System.out.println(mobile.getNo());
+        }
+    }
+}
+
+
+5. Bob is a wall painter and he needs your help. You have to write a program that helps Bob calculate how many buckets of paint he needs to buy
+before going to work. Bob might also have some extra buckets at home.
+He also knows the area that he can cover with one bucket of paint.
+
+You need to implement the 3 methods based on the information available with the Bob as mentioned below:
+
+1. Write a method named getBucketCount with 4 parameters.
+----------------------------------------------------------------
+    The first parameter should be named width of type double. This parameter represents the width of the wall.
+    The second parameter should be named height of type double. This parameter represents the height of the wall.
+    The third parameter should be named areaPerBucket. This parameter represents the area that can be covered with one bucket of paint.
+    The fourth parameter should be named extraBuckets. This parameter represents the extra bucket count that Bob has at home.
+
+The method needs to return a value of type int that represents the number of buckets that Bob needs to buy before going to work. 
+
+If one of the parameters width, height or areaPerBucket is less or equal to 0 or if extraBuckets is less than 0, the method needs to return -1
+to indicate an invalid value.
+
+If all parameters are valid, the method needs to calculate the number of buckets and return it.
+
+Explaination:
+-----------------------
+getBucketCount(3.4, 2.1, 1.5, 2) →   wall width 3.4, wall height 2.1, a single bucket can cover an area of 1.5 and 
+                                     Bob has 2 extra buckets at home.
+                                    
+                                    Understand the calculations below:
+                                    -----------------------------------
+                                     double totalArea = 3.4 * 2.1 = 7.14
+                                     double areaWecanPaint = areaPerBucket * extraBuckets =1.5 * 2 = 3
+                                     double areatobePainted = totalArea - areaWecanPaint = 7.14 - 3 = 4.14 
+                                      
+                                     int neededBuckets = areatobePainted / areaPerBucket = 4.14 / 1.5 = 2.76 = 3 (round it off to next digit)  
+                                     Hence the method will return 3 as the number of buckets that bob still need to buy to cover totalArea!!
+                                     
+getBucketCount(-3.4, 2.1, 1.5, 2) →  should return -1 since the width parameter is invalid
+
+
+2. In second case, Bob does not like to enter 0 for the extraBuckets parameter so he needs another method.
+   Write another overloaded method named getBucketCount with 3 parameters namely width, height, and areaPerBucket (all of type double).
+   This method needs to return a value of type int that represents the number of buckets that Bob needs to buy before going to work.
+
+
+getBucketCount(3.4, 2.1, 1.5); → should return 5 since the wall area is 7.14, and a single bucket can cover an area of 1.5.
+                                 Understand the calculations Below:
+                                 ----------------------------------
+                                  double totalArea = width * height = 7.14;
+                                  int neededBuckets = totalArea / AreaPerBucket = 7.14 / 1.5 = 4.76 = 5 (rounded off to next digit)
+                                 
+
+3. In third case, Bob does not know the width and height of the wall but he knows the area of a wall and area per bucket. He needs you to write another method.
+Write another overloaded method named getBucketCount with 2 parameters namely, area and areaPerBucket (both of type double).
+The method needs to return a value of type int that represents the number of buckets that Bob needs to buy before going to work.
+
+getBucketCount(7.14, 1.5); →   should return 5 since the wall area is 7.14 and a single bucket can cover an area of 1.5.
+                               totalArea / areaPerBucket = 7.14 / 2.2 = 4.76 = 5 (rounded off to next digit)
+
+
+Note: you can use Menu drive approach with switch case to implement above 3 methods based on user choice.
+
+Test case examples:
+----------------------
+Case= t1
+input=1                      //choice 1 getBucketCount with 4 parameters
+3.42 2.1 1.5 2
+2                           //choice 2 getBucketCount with 3 parameters
+3.42 2.1 1.5
+3                           //choice 3 getBucketCount with 2 parameters
+40.85 5.5
+4                           //exit case 
+output=
+Buckets needed: 3
+Buckets needed: 5
+Buckets needed: 8
+
+case=t2
+input=5
+3
+8.26 4
+4
+output=
+Invalid Choice!
+Buckets needed: 3
+
+case=t3
+input=1
+4.5 3.5 3 4
+2
+20 15 3
+3
+40.5 3
+4
+output=
+Buckets needed: 2
+Buckets needed: 100
+Buckets needed: 14
+
+case=t4
+fail message="hidden case"
+grade reduction=10%
+input=1
+2 3 3 2
+2
+2 3 3
+3
+6 2
+4
+output=Buckets needed: 0
+Buckets needed: 2
+Buckets needed: 3
+
+case=t5
+input=1
+0 0 3 0
+2
+2 3 1
+3
+6 0
+4
+output=
+Buckets needed: -1
+Buckets needed: 6
+Buckets needed: -1
+
+
+PROGRAM:
+---------------------------------
+import java.util.*;
+
+public class Solution {
+
+    public static int getBucketCount(double width, double height, double areaPerBucket, int extraBucket) {
+        if (width <= 0 || height <= 0 || areaPerBucket <= 0 || extraBucket < 0) {
+            return  -1;
+        }
+        double areaToPaint = width * height;
+        double areaWeCanPaint = areaPerBucket * extraBucket;
+        double areaLeftToPaint = areaToPaint - areaWeCanPaint;
+        if (areaLeftToPaint < 0) {
+            return 0;
+        } else {
+            return ((int)Math.ceil(areaLeftToPaint / areaPerBucket));
+        }
+    }
+
+    public static int getBucketCount(double width, double height, double areaPerBucket) {
+        if (width <= 0 || height <= 0 || areaPerBucket <= 0.0) {
+            return  -1;
+        }
+        double areaToPaint = width * height;
+            return ((int)Math.ceil(areaToPaint / areaPerBucket));
+    }
+
+    public static int getBucketCount(double area, double areaPerBucket) {
+        if (area <= 0 || areaPerBucket <= 0.0) {
+            return  -1;
+        }
+        return ((int)Math.ceil(area / areaPerBucket));
+    }
+
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+           /* System.out.println("1. Calculate buckets needed with extra buckets");
+            System.out.println("2. Calculate buckets needed without extra buckets");
+            System.out.println("3. Calculate buckets needed using area");
+            System.out.println("4. Exit");*/
+
+            int choice = scanner.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    //System.out.println("Enter width, height, area per bucket, and extra buckets:");
+                    double width = scanner.nextDouble();
+                    double height = scanner.nextDouble();
+                    double areaPerBucket = scanner.nextDouble();
+                    int extraBuckets = scanner.nextInt();
+                    int bucketsNeeded = getBucketCount(width, height, areaPerBucket, extraBuckets);
+                    System.out.println("Buckets needed: " + bucketsNeeded);
+                    break;
+
+                case 2:
+                    //System.out.println("Enter width, height, and area per bucket:");
+                    double width2 = scanner.nextDouble();
+                    double height2 = scanner.nextDouble();
+                    double areaPerBucket2 = scanner.nextDouble();
+                    int bucketsNeeded2 = getBucketCount(width2, height2, areaPerBucket2);
+                    System.out.println("Buckets needed: " + bucketsNeeded2);
+                    break;
+
+                case 3:
+                    //System.out.println("Enter area and area per bucket:");
+                    double area = scanner.nextDouble();
+                    double areaPerBucket3 = scanner.nextDouble();
+                    int bucketsNeeded3 = getBucketCount(area, areaPerBucket3);
+                    System.out.println("Buckets needed: " + bucketsNeeded3);
+                    break;
+
+                case 4:
+                    scanner.close();
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+}
+
+6. Given an existing Account Class, you need to implement the concept of method overriding,
+by accessing the method calculateInterest() from Account class to SavingsAccount Class
+and also to FixedDepositAccount class.
+
+and then calculate the Interest rates form both accounts based on following conditions:
+For Savings Bank account 7% interest on the account balance.
+For Fixed Deposit account 9% interest on the account balance.
+
+U need to initialize the main balance in the Account class, through constructors of SavingsAccount and FixedDepositAccount classes.
+
+Input format: Read the Savings Account balance in first line.
+              Read the Fixed deposit Account balance in second line.
+Output format: Calculate interest for the respective accounts and print the interest amount by restricting it to 2 decimal places.
+
+Note: Account Class is already given in the server. So students need not to rewrite it again::
+
+class Account {
+    protected double balance;
+
+    public Account(double balance) {
+        this.balance = balance;
+    }
+
+    public void calculateInterest() {
+        System.out.println("Interest calculation depends on Accounts."); 
+    }
+}
+
+Test Case Example:
+----------------------
+case=t1
+input=10000
+50000
+output=
+Interest for a savings account: Rs. 700.00
+Interest for a fixed deposit account: Rs. 4500.00
+
+case=t2
+input=560403
+1000000
+output=
+Interest for a savings account: Rs. 39228.21
+Interest for a fixed deposit account: Rs. 90000.00
+
+case=t3
+fail message="hidden case"
+input=0
+0
+output=
+Interest for a savings account: Rs. 0.00
+Interest for a fixed deposit account: Rs. 0.00
+
+case=t4
+input=1233456
+9786546
+output=
+Interest for a savings account: Rs. 86341.92
+Interest for a fixed deposit account: Rs. 880789.14
+
+
+PROGRAM:
+--------------------------------
+import java.util.*;
+
+class SavingsAccount extends Account {
+    public SavingsAccount(double balance) {
+        (balance);
+    }
+
+    @Override
+    public void calculateInterest() {
+        double interest = balance * 0.07;
+        System.out.println("Interest for a savings account: Rs. " +  String.format("%.2f", interest));
+    }
+}
+
+class FixedDepositAccount extends Account {
+    public FixedDepositAccount(double balance) {
+        super(balance);
+    }
+
+    @Override
+    public void calculateInterest() {
+        double interest = balance * 0.09;
+        System.out.println("Interest for a fixed deposit account: Rs. " +  String.format("%.2f", interest));
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double sb = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+
+        //System.out.print("Enter the fixed deposit account balance: ");
+        double fd = scanner.nextDouble();
+
+        Account savingsAccount = new SavingsAccount(sb);
+        Account fixedDepositAccount = new FixedDepositAccount(fd);
+
+
+        savingsAccount.calculateInterest();
+        fixedDepositAccount.calculateInterest();
+
+        scanner.close();
+    }
+}
+
+
+7.  Given the following two interfaces:
+
+interface PremierLeaguePlayer {
+    String getClub();
+    String getPositionInPremierLeague();
+}
+
+interface ChampionsLeaguePlayer {
+    void scoreGoal();
+    String getPositionInChampionsLeague();
+    boolean hasScoredInChampionsLeague();
+}
+
+you need to create a class called as SoccerPlayer.java and have members name, club,
+positioninpremierleague, positioninchampionsleague, boolean variable scoredinchmapionsleague
+and appropriate getter methods. and constructor to initialize the data members.
+
+The SoccerPlayer class needs to implement the above two interfaces and its given methods.
+
+Input Format: Read the player name, club, positioninpremierleague, positioninchampionsleague
+              and true or false value to indicate whether he scored in champions league or not.
+
+output format:
+print all the entered details of the player and 
+if the boolean value is true, then you print the following message:
+"The player scored in the champions league"
+or else
+"The player didn't score in the Champions League."
+
+
+
+Test case example:
+-----------------------------
+case=t1
+input=Bukayo Saka
+Arsenal
+Left winger
+Striker
+true
+output=
+Name: Bukayo Saka
+Premier League Club: Arsenal
+Position in Premier League: Left winger
+Position in Champions League: Striker
+The player scored in the Champions League.
+
+case=t2
+input=Gabriel Jesus
+Arsenal
+Striker
+Right Winger
+false
+output=
+Name: Gabriel Jesus
+Premier League Club: Arsenal
+Position in Premier League: Striker
+Position in Champions League: Right Winger
+The player didn't score in the Champions League.
+
+case=t3
+input=Lionel Messi
+Barcelona
+Striker
+Attacking Mid fielder
+true
+output=
+Name: Lionel Messi
+Premier League Club: Barcelona
+Position in Premier League: Striker
+Position in Champions League: Attacking Mid fielder
+The player scored in the Champions League.
+
+case=t3
+fail message="hidden test case"
+input=Ronaldo
+Real Madrid
+Striker
+winger
+false
+Name: Ronaldo
+output=
+Premier League Club: Real Madrid
+Position in Premier League: Striker
+Position in Champions League: winger
+The player didn't score in the Champions League.
+
+
+PROGRAM:
+---------------------------------
+import java.util.Scanner;
+
+// Interface for Premier League player details
+
+class SoccerPlayer implements PremierLeaguePlayer, ChampionsLeaguePlayer {
+    private String name;
+    private String club;
+    private String positionInPremierLeague;
+    private String positionInChampionsLeague;
+    private boolean scoredInChampionsLeague;
+
+    public SoccerPlayer(String name, String club, String positionInPremierLeague, String positionInChampionsLeague) {
+        this.name = name;
+        this.club = club;
+        this.positionInPremierLeague = positionInPremierLeague;
+        this.positionInChampionsLeague = positionInChampionsLeague;
+        this.scoredInChampionsLeague = false;
+    }
+
+    @Override
+    public String getClub() {
+        return club;
+    }
+
+    public String getPositionInPremierLeague() {
+        return positionInPremierLeague;
+    }
+
+    public void scoreGoal() {
+        scoredInChampionsLeague = true;
+    }
+
+    public String getPositionInChampionsLeague() {
+        return positionInChampionsLeague;
+    }
+
+    public boolean hasScoredInChampionsLeague() {
+        return scoredInChampionsLeague;
+    }
+    
+    public String getName() {
+        return name;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        //System.out.print("Enter player name: ");
+        String playerName = scanner.nextLine();
+
+        //System.out.print("Enter Premier League team name: ");
+        String premierLeagueClub = scanner.nextLine();
+
+       // System.out.print("Enter Premier League position: ");
+        String premierLeaguePosition = scanner.nextLine();
+
+        //System.out.print("Enter Champions League position: ");
+        String championsLeaguePosition = scanner.nextLine();
+
+        SoccerPlayer player = new SoccerPlayer(playerName, premierLeagueClub, premierLeaguePosition, championsLeaguePosition);
+
+        //System.out.print("Did the player score in Champions League? (true/false): ");
+        boolean scoredInChampionsLeague = scanner.nextBoolean();
+        if (scoredInChampionsLeague) {
+            player.scoreGoal();
+        }
+
+       
+        System.out.println("Name: " + player.getName());
+        System.out.println("Premier League Club: " + player.getClub());
+        System.out.println("Position in Premier League: " + player.getPositionInPremierLeague());
+        System.out.println("Position in Champions League: " + player.getPositionInChampionsLeague());
+
+        if (player.hasScoredInChampionsLeague()) {
+            System.out.println("The player scored in the Champions League.");
+        } else {
+            System.out.println("The player didn't score in the Champions League.");
+        }
+
+        scanner.close();
+    }
+}
+
+8. Consider a university system where students can enroll in multiple courses, and each course can have multiple students enrolled. 
+->Create a Java program that models this relationship using classes for Student and Course to manage the
+relationship between students and courses.
+
+Use the following menu driven operations and also instructions given for entering the input:
+----------------------------------------------------------------------------------------------
+1. enter student details (roll number and name)
+2. Create course ( course id and course name)
+3. Add student to course (enter student name followed by course name in next line)
+4. Display students enrolled in each course.
+5. Display Courses enrolled by each student.
+6. Exit
+
+
+Test case examples:
+----------------------
+case=t1
+input=
+1
+101 rajesh
+1
+102 omkar
+1
+103 sishir
+1
+104 pujitha
+1
+105 sreya
+2
+41 java
+2
+42 python
+4
+5
+
+3
+rajesh
+java
+3
+rajesh
+python
+3
+omkar
+python
+3
+pujitha
+java
+3
+sishir
+python
+4
+5
+6
+output=
+Student Added
+Student Added
+Student Added
+Student Added
+Student Added
+Course Added
+Course Added
+
+Students enrolled in java course:
+No students enrolled in this course.
+Students enrolled in python course:
+No students enrolled in this course.
+
+Courses enrolled by rajesh:
+No courses enrolled by this student.
+
+Courses enrolled by omkar:
+No courses enrolled by this student.
+
+Courses enrolled by sishir:
+No courses enrolled by this student.
+
+Courses enrolled by pujitha:
+No courses enrolled by this student.
+
+Courses enrolled by sreya:
+No courses enrolled by this student.
+
+rajesh has been enrolled to java course.
+rajesh has been enrolled to python course.
+omkar has been enrolled to python course.
+pujitha has been enrolled to java course.
+sishir has been enrolled to python course.
+
+Students enrolled in java course:
+rajesh
+pujitha
+Students enrolled in python course:
+rajesh
+omkar
+sishir
+
+Courses enrolled by rajesh:
+java
+python
+
+Courses enrolled by omkar:
+python
+
+Courses enrolled by sishir:
+python
+
+Courses enrolled by pujitha:
+java
+
+Courses enrolled by sreya:
+No courses enrolled by this student.
+
+case=t2
+input=1
+101 rajesh
+2
+41 java
+3
+rajesh
+python
+4
+5
+6
+output=
+Student Added
+Course Added
+Invalid data entered. Student or course not found.
+
+Students enrolled in java course:
+No students enrolled in this course.
+
+Courses enrolled by rajesh:
+No courses enrolled by this student.
+
+case=t3
+fail message="hidden case"
+input=8
+6
+output=
+Invalid Choice
+
+case=t4
+fail message="hidden case"
+input=3
+rajesh
+java
+6
+output=
+Invalid data entered. Student or course not found.
+
+PROGRAM:
+------------------------
+import java.util.*;
+class Student {
+    private int sID;
+    private String sName;
+    private List<Course> courses;
+
+    public Student(int studentId, String studentName) {
+        this.sID = studentId;
+        this.sName = studentName;
+        this.courses = new ArrayList<>();
+    }
+    public String getStudentName(){
+	    return sName;
+    }
+    public void enrollToCourse(Course course) {                         
+        courses.add(course);
+        course.addStudent(this);
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+}
+
+class Course {
+    private int courseId;
+    private String courseName;
+    private List<Student> students;
+
+    public Course(int courseId, String courseName) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.students = new ArrayList<>();
+    }
+    public String getCourseName(){
+ 	    return courseName;
+	}
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        int n;
+        Scanner sc=new Scanner(System.in);
+        List<Student> st=new ArrayList<Student>();
+	    List<Course> cs=new ArrayList<Course>();
+	    int i=0,k=0;
+	    while(true){
+	        int ch=sc.nextInt();
+	      switch(ch){
+	        case 1:
+	            int id=sc.nextInt();
+                String name=sc.next();
+                st.add(i,new Student(id,name));
+                i++;
+	            System.out.println("Student Added");
+	            break;
+	        case 2:
+	            int cid=sc.nextInt();
+                String cname=sc.next();
+                cs.add(k,new Course(cid, cname));
+                k++;
+            	System.out.println("Course Added");
+            	break;
+	        case 3:sc.nextLine();
+	            String s=sc.nextLine();
+	            String c=sc.nextLine();
+	            Student student=null;
+	            Course course=null;
+	            for(Student a:st){
+	                if(a.getStudentName().equalsIgnoreCase(s)){
+                    student=a;
+	               }
+	            }
+	            for(Course a:cs){
+	                if(a.getCourseName().equalsIgnoreCase(c)){
+                        course=a;
+	                }
+	            }  
+	           if (student != null && course != null) {
+                   student.enrollToCourse(course);
+            System.out.println(student.getStudentName() + " has been enrolled to " + course.getCourseName() + " course.");
+    } else {
+        System.out.println("Invalid data entered. Student or course not found.");
+    }
+    break;
+	        case 4:
+                     for (Course a : cs) {
+                    System.out.println("Students enrolled in " + a.getCourseName() + " course:");
+                    List<Student> enrolledStudents = a.getStudents();
+                    if (!enrolledStudents.isEmpty()) {
+                        for (Student b : enrolledStudents) {
+                            System.out.println(b.getStudentName());
+                        }
+                            } else {
+                                System.out.println("No students enrolled in this course.");
+                            }
+                        }
+                       
+                        break;
+
+	        case 5:
+                
+                for (Student a : st) {
+                   System.out.println("\nCourses enrolled by " + a.getStudentName() + ":");
+                      List<Course> enrolledCourses = a.getCourses();
+                        if (!enrolledCourses.isEmpty()) {
+                              for (Course b : enrolledCourses) {
+                                     System.out.println(b.getCourseName());
+                                 }
+                            } else {
+                           System.out.println("No courses enrolled by this student.");
+                        }
+                      }
+                       
+                        break;
+	       case 6:
+		            System.exit(0);
+		  default: System.out.println("Invalid Choice");
+	      }
+        }
+    }
+}
+
+
+9. /* Given the following two files in the server: one is abstract class and another is interface class.
+----------------------------------------------------
+MusicDirector.java:
+
+abstract class MusicDirector {
+    private String name;
+
+    public MusicDirector(String name) {
+        this.name = name;
+    }
+
+    public abstract void directsMusic();
+
+    public String getName() {
+        return name;
+    }
+}
+
+Composer.java:
+------------------
+interface Composer{
+    void composesMelody();
+}
+
+You need to create another class named as "Artist.java" which extends abstract class MusicDirector and defines the
+directsMusic() method and uses constructor and getter methods as well.
+Also the Artist.java needs to implement the interface method composesMelody() from Composer.java interface.
+
+Also the Artist.java class should initialize the artist name through MusicDirector constructor. U can use
+super keyword to achieve the same.
+
+directsMusic() method should display following message:
+"Artistname Directs Film Music- Mixing, Mastering, recording of Songs"
+
+composesMelody() method should display following message:
+"Artistname composes independent song, writes lyrics and creates melody."
+
+Depending on the user input (Case-Insensitive), one of the above methods should be called.
+
+The user inputs should consider only the following list of artists and the information of whether they are both 
+Music directors or only Composers or Both. 
+----------
+AR RAHMAN:              Both Music Director and Composer.
+ANIRUDH RAVICHANDER:    Both Music Director and Composer.
+CHANDAN SHETTY:         Both Music Director and Composer.
+THAMAN S:               Both Music Director and Composer.
+
+ARIJIT SINGH:           Only composer
+JAANI:                  Only composer
+
+DSP:                    Only Music Director
+PRITAM:                 Only Music Director
+
+If any other artist name is entered apart from the above mentioned. Print "Invalid Artist Name" message.
+Observe the given test cases for more clarity:
+
+Test case examples:
+----------------------
+case=t1
+input=chandan shetty
+output=
+CHANDAN SHETTY Directs Film Music- Mixing, Mastering, recording of Songs
+Also, CHANDAN SHETTY composes independent song, writes lyrics and creates melody.
+
+
+
+case=t2
+input=CHANDAN SHETTY
+output=
+CHANDAN SHETTY Directs Film Music- Mixing, Mastering, recording of Songs
+Also, CHANDAN SHETTY composes independent song, writes lyrics and creates melody.
+
+
+case=t3
+input=AR RAHMAN
+output=AR RAHMAN Directs Film Music- Mixing, Mastering, recording of Songs
+Also, AR RAHMAN composes independent song, writes lyrics and creates melody.
+
+
+case=t4
+fail message="hidden case"
+grade reduction=10%
+input=arijit singh
+output=
+ARIJIT SINGH composes independent song, writes lyrics and creates melody.
+
+case=t5
+input=Arijit Singh
+output=
+ARIJIT SINGH composes independent song, writes lyrics and creates melody.
+
+case=t6
+input=jaani
+output=
+JAANI composes independent song, writes lyrics and creates melody.
+
+case=t7
+input=pritam
+output=
+PRITAM Directs Film Music- Mixing, Mastering, recording of Songs
+
+case=t8
+fail message="hidden case"
+input=thaman s
+OUTPUT=
+THAMAN S Directs Film Music- Mixing, Mastering, recording of Songs
+Also, THAMAN S composes independent song, writes lyrics and creates melody.
+
+case=t9
+input=THAMAN S
+output=
+THAMAN S Directs Film Music- Mixing, Mastering, recording of Songs
+Also, THAMAN S composes independent song, writes lyrics and creates melody.
+
+case=t10
+input=dsp
+output=
+DSP Directs Film Music- Mixing, Mastering, recording of Songs
+
+case=t11
+input=arjun 
+output=
+invalid artist name
+
+case=t12
+input=virat kohli
+output=
+invalid artist name
+
+Note: in the output Artist name should appear in Capitals and for comparison it should be case insensitive.
+
+PROGRAM:
+------------------------------------
+import java.util.Scanner;
+
+class Artist extends MusicDirector implements Composer {
+
+    public Artist(String name) {
+        super(name);
+    }
+
+    public void directsMusic() {
+        System.out.println(getName().toUpperCase() + " Directs Film Music- Mixing, Mastering, recording of Songs");
+    }
+
+    public void composesMelody() {
+        System.out.println(getName().toUpperCase() + " composes independent song, writes lyrics and creates melody.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        //System.out.print("Enter the artist name: ");
+        String artistName = scanner.nextLine().toLowerCase();
+
+        Artist a = new Artist(artistName);
+
+        switch (artistName) {
+            case "ar rahman":
+            case "anirudh ravichander": 
+            case "chandan shetty":   
+            case "thaman s":    
+                a.directsMusic();
+                System.out.print("Also, ");
+                a.composesMelody();
+                break;
+            case "arijit singh":
+            case "jaani":    
+                a.composesMelody();
+                break;
+            case "dsp":
+            case "pritam":    
+                a.directsMusic();
+                break;
+            default:
+                System.out.println("Invalid artist name");
+        }
+    }
+}
+
+10. Given the following BHIMUPI.java class:
+---------------------------------------------
+class BHIMAPI {
+    protected static final String GPAY_PIN = "1717";
+    protected static final String PHONEPE_PIN = "2727";
+    protected static final String PAYTM_PIN = "3737";
+
+    private static boolean verifyPin(String userPin, String actualPin) {
+        return userPin.equals(actualPin);
+    }
+
+    final boolean BhimAccess(String userPin, String actualPin) {
+        if (verifyPin(userPin, actualPin))
+        {
+            System.out.println("BHIM UPI Access Granted.");
+            return true; 
+        }
+        else 
+        {
+            System.out.println("Transaction is Aborted.");
+            return false;
+        }
+    }
+}
+
+You need to create a menu drive program to perform valid payment transactions.
+Create 3 separate classes for GPay, Phonepe and Paytm which extends the BHIMAPI class.
+and access the individual UPI_PIN provided in that class.
+
+There is a final method named as BhimAccess() which will access the PIN entered by the user
+and actual PIn for the corresponding Payment app. It will return true and grant access to UPI
+only if the PINs Matches else it will return Transaction is Aborted.
+
+In each classes of GPay, Phonepe and Paytm, they should hav their individual functions
+which calls the BhimAcess() method with 2 parameters, entered Pin and actual Pin.
+only if the BhimAccess() returns true, you need to print the message:
+Gpay transaction is successul.
+Phonepe transaction is successful.
+Paytm transaction is successful.
+
+otherwise Print "Invalid Gpay Pin"
+                "Invalid Phonepe Pin"
+                "Invalid Paytm Pin"
+
+input format: 
+----------------
+                System.out.println("1. GPay");
+                System.out.println("2. PhonePe");
+                System.out.println("3. Paytm");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice: ");
+
+enter the choice of payment app and on same line enter the Upi Pin(in String format).
+
+for the Output format and other possible scenarios, observe the 
+given test cases below.
+
+
+Test Case examples:
+----------------------
+case=t1
+input=
+1 1717
+4
+output=
+BHIM UPI Access Granted.
+GPay transaction is successful.
+
+case=t2
+input=
+1 2727
+4
+output=
+Transaction is Aborted.
+Invalid GPay Pin.
+
+case=t3
+input=
+2 2727 
+4
+output=
+BHIM UPI Access Granted.
+PhonePe transaction is successful.
+
+case=t4
+input=5
+4
+output=
+Invalid Payment Option.
+
+case=t5
+input=3 3737
+4
+output=
+BHIM UPI Access Granted.
+Paytm transaction is successful.
+
+case=t6
+input=3 
+3737
+4
+output=
+BHIM UPI Access Granted.
+Paytm transaction is successful.
+
+case=t7
+input=3 
+3737
+1
+1717
+2
+2727
+4
+output=
+BHIM UPI Access Granted.
+Paytm transaction is successful.
+BHIM UPI Access Granted.
+GPay transaction is successful.
+BHIM UPI Access Granted.
+Phonepe transaction is successful.
+
+case=t8
+input=
+2 3737
+4
+output=
+Transaction is Aborted.
+Invalid Phonepe Pin.
+
+case=t9
+fail message="Hidden test case"
+input=
+3 4848
+4
+output=
+Transaction is Aborted.
+Invalid Paytm Pin.
+
+case=t10
+fail message="Hidden test case"
+input=10
+4
+output=
+Invalid Payment Option.
+
+case=t11
+input=
+3 1234
+4
+output=
+Transaction is Aborted.
+Invalid Paytm Pin.
+
+PROGRAM:
+------------------------------
+import java.util.*;
+
+class GPay extends BHIMAPI {
+
+    void performGPayTransaction(String pin) {
+        if (BhimAccess(pin, GPAY_PIN)) {
+            System.out.println("GPay transaction is successful.");
+        }
+        else
+        System.out.println("Invalid GPay Pin.");
+    }
+}
+
+class PhonePe extends BHIMAPI {
+
+    void performPhonePeTransaction(String pin) {
+        if (BhimAccess(pin, PHONEPE_PIN)) {
+            System.out.println("PhonePe transaction is successful.");
+        }
+        else
+        System.out.println("Invalid PhonePe Pin.");
+    }
+}
+
+class Paytm extends BHIMAPI {
+    void performPaytmTransaction(String pin) {
+        if (BhimAccess(pin, PAYTM_PIN)) {
+            System.out.println("Paytm transaction is successful.");
+        }
+        else
+        System.out.println("Invalid Paytm Pin.");
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+            int choice;
+            String pin;
+
+            while(true)
+            {
+                /*System.out.println("Menu:");
+                System.out.println("1. GPay");
+                System.out.println("2. PhonePe");
+                System.out.println("3. Paytm");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice: ");*/
+                choice = scanner.nextInt();
+              
+                switch (choice) {
+                    case 1:
+                          pin = scanner.next();
+                        GPay gPay = new GPay();
+                        gPay.performGPayTransaction(pin);
+                        break;
+                    case 2:
+                          pin = scanner.next();
+                        PhonePe phonePe = new PhonePe();
+                        phonePe.performPhonePeTransaction(pin);
+                        break;
+                    case 3:
+                          pin = scanner.next();
+                        Paytm paytm = new Paytm();
+                        paytm.performPaytmTransaction(pin);
+                        break;
+                    case 4:
+                        scanner.close();
+                       System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Invalid Payment Option.");
+                }
+
+            }
+    }
+}
+
+
 
