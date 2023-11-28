@@ -1,0 +1,806 @@
+1. Given an arraylist of size n, Write a function int harmonyIndex(int[] arr, int n) that returns harmony index (if any) or -1
+if no such  index exists. 
+
+The harmony index of an array is an index such that the sum of elements at lower indexes is equal to the sum of elements at higher indexes. 
+
+Test Case example:
+---------------------
+input=5
+3 2 5 3 2
+output=
+Harmony Index: 2
+
+Steps to solve the problem:
+---------------------------------
+
+Input:
+Read the number of elements n in the array.
+Read the elements of the array.
+
+Initialize variables totalSum and leftSum to 0.
+
+Iterate through the array and add each element to totalSum.
+
+For each element at index i:
+   Subtract the element at index i from totalSum (to get the right sum).
+   Check if leftSum is equal to the updated totalSum.
+       If equal, return the current index i as the Harmony index.
+   Add the element at index i to leftSum (updating left sum for the next iteration).
+
+If no harmony index is found, return -1.
+
+Test cases:
+--------------
+case=t1
+input=6
+-7 1 5 2 -4 3
+output=
+Harmony Index: 3
+
+case=t2
+input=5
+3 2 5 3 2
+output=
+Harmony Index: 2
+
+case=t3
+input=4
+1 2 3 0
+output=
+Harmony Index: -1
+
+case=t4
+input=8
+-1 2 -1 -1 -1 1 4 -1
+output=
+Harmony Index: 6
+
+case=t5
+fail message="hidden case"
+input=7
+2 1 5 76 8 5 4
+output=
+Harmony Index: -1
+
+PROGRAM:
+-------------------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Solution {
+   public static int harmonyindex(ArrayList<Integer> arr, int n) {
+        int totalSum = 0;
+        int leftSum = 0;
+
+        for (int i = 0; i < n; i++) 
+            totalSum += arr.get(i);
+
+        for (int i = 0; i < n; i++) {
+            totalSum -= arr.get(i);
+
+            if (leftSum == totalSum)
+                return i;
+
+            leftSum += arr.get(i);
+        }
+
+        return -1;
+    }
+
+    // Driver code
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+      //  System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+
+        //System.out.println("Enter the elements of the array:");
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            arr.add(scanner.nextInt());
+        }
+        int result = harmonyindex(arr, n);
+        System.out.println("Harmony Index: " + result);
+
+        scanner.close();
+    }
+}
+
+2. Given a 2D array of strings, with each row containing a name pair,
+you have to print the number of unique name pairs up till that point.
+
+test case example:
+-----------------------
+case=t1
+input=4
+arun ck
+virat kohi
+arun ck
+rohit sharma
+output=
+1
+2
+2
+3
+
+Explaination: for 1st row unique string is 1, 2nd row its updated to 2, third row its still 2 as the string is already repeated and so on.
+
+case=t2
+input=5
+a b
+c d
+e f
+g h
+i j
+output=
+1
+2
+3
+4
+5
+
+case=t3
+fail message="hidden case"
+input=5
+virat kohli
+rohit sharma
+ishan kishan
+virat kohli
+KL rahul
+output=
+1
+2
+3
+3
+4
+
+case=t4
+input=4
+v k
+a k
+v k
+a k
+output=
+1
+2
+2
+2
+
+
+PROGRAM:
+-------------------------------
+import java.util.*;
+public class Solution {
+    public static void main(String[]args){
+      Scanner scanner = new Scanner(System.in);
+ 
+     
+        int n = scanner.nextInt();
+        scanner.nextLine(); 
+
+        String[][] input = new String[n][2];
+
+       // System.out.println("Enter the pairs (space-separated values):");
+        for (int i = 0; i < n; i++) {
+            String line = scanner.nextLine();
+            input[i] = line.split(" ");
+        }
+      
+        uniquePairs(input);
+        scanner.close();   
+    }
+    
+public static void uniquePairs(String[][] pairs) {
+        HashSet<String> set = new HashSet<>();
+        int count = 0;
+
+        for (String[] i : pairs) {
+            String merged = i[0] + " " + i[1];
+
+            if (set.contains(merged)) {
+                System.out.println(count);
+            } else {
+                set.add(merged);
+                count++;
+                System.out.println(count);
+            }
+        }
+    }
+}
+
+3. Given an array A of N elements. Find the Winning Candidate element in the array.
+A WinningCandidate element in an array A of size N is an element that appears strictly more than N/2 times in the array.
+
+Test Case example:
+---------------------
+case=t1
+input=5
+3 1 3 3 2
+output=
+Winning Candidate: 3
+
+case=t2
+input=5
+1 2 2 2 1
+output=
+Winning Candidate: 2
+
+case=t3
+input=6
+4 4 4 3 3 3
+output=
+No Such Candidate
+
+case=t4
+input=4
+1 2 3 4
+output=
+No Such Candidate
+
+case=t5
+fail message="hidden case"
+input=7
+5 5 5 5 7 7 7
+output=
+Winning Candidate: 5
+
+PROGRAM:
+----------------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+class Solution {
+    static int winningCandidate(ArrayList<Integer> list) {
+        int count = 0;                         //ex: 1 2 3 2 2
+        int candidate = -1;
+        for (int num : list) {
+            if (count == 0) {
+                candidate = num;
+            }
+            if(num==candidate)
+            {
+                count++;
+            }
+            else count--;
+        }
+        int finalCount = 0;
+        for (int num : list) {
+            if (num == candidate) {
+                finalCount++;
+            }
+        }
+        if (finalCount > list.size() / 2) {
+            return candidate;
+        }
+
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        //System.out.print("Enter the size of the ArrayList: ");
+        int size = sc.nextInt();
+        ArrayList<Integer> list = new ArrayList<>();
+        //System.out.println("Enter elements for the ArrayList:");
+        for (int i = 0; i < size; i++) {
+            list.add(sc.nextInt());
+        }
+        int res = winningCandidate(list);
+        if (res != -1) {
+            System.out.println("Winning Candidate: " + res);
+        } else {
+            System.out.println("No Such Candidate");
+        }
+        sc.close();
+    }
+}
+
+
+4. write a java program that implements stack collection and checks if one stack is subset of another stack.
+
+input format:
+----------------
+enter the size of stack A and enter the number of Elements.
+enter the size of stack B and enter the number of elements.
+
+Test case example:
+-------------------------------
+case=t1
+input=5
+1 4 3 2 1
+3
+4 3 1
+output=
+Is stack A subset of Stack B?: false
+Is stack B subset of Stack A?: true
+
+case=t2
+input=5
+2 1 5 7 4
+1
+7
+output=
+Is stack A subset of Stack B?: false
+Is stack B subset of Stack A?: true
+
+case=t3
+input=1
+7
+1
+7
+output=
+Is stack A subset of Stack B?: true
+Is stack B subset of Stack A?: true
+
+case=t4
+input=3
+1 2 3
+5
+2 6 4 3 1 7
+output=
+Is stack A subset of Stack B?: true
+Is stack B subset of Stack A?: false
+
+
+
+PROGRAM:
+----------------------------
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Solution {
+    public static boolean isSubset(Stack<Integer> A, Stack<Integer> B) {
+        Stack<Integer> temp = new Stack<>();
+        boolean isSubset = true;
+
+        while (!A.isEmpty()) {
+            int a = A.pop();
+            boolean found = false;
+
+            while (!B.isEmpty()) {
+                int b = B.pop();
+
+                if (a == b) {
+                    found = true;
+                    break;
+                } else {
+                    temp.push(b);
+                }
+            }
+
+            while (!temp.isEmpty()) {
+                B.push(temp.pop());
+            }
+
+            if (!found) {
+                isSubset = false;
+                break;
+            }
+        }
+
+        while (!temp.isEmpty()) {
+            A.push(temp.pop());
+        }
+
+        return isSubset;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+       // System.out.print("Enter the size of Stack A: ");
+        int sizeA = scanner.nextInt();
+        //System.out.println("Enter elements for Stack A:");
+        Stack<Integer> A = new Stack<>();
+        for (int i = 0; i < sizeA; i++) {
+            A.push(scanner.nextInt());
+        }
+
+       // System.out.print("Enter the size of Stack B: ");
+        int sizeB = scanner.nextInt();
+        //System.out.println("Enter elements for Stack B:");
+        Stack<Integer> B = new Stack<>();
+        for (int i = 0; i < sizeB; i++) {
+            B.push(scanner.nextInt());
+        }
+
+        System.out.println("Is stack A subset of Stack B?: "+isSubset(A, B));
+        System.out.println("Is stack B subset of Stack A?: "+isSubset(B, A));
+
+        scanner.close();
+    }
+}
+
+5. write a java program delete middile element of linked list. 
+
+test case example:
+--------------------
+case=t1
+input=5
+2 1 3 5 7
+output=
+Original Linked List:
+[2, 1, 3, 5, 7]
+Linked List after deletion of middle:
+[2, 1, 5, 7]
+
+case=t2
+input=7
+2 1 3 5 6 7 60
+output=
+Original Linked List:
+[2, 1, 3, 5, 6, 7, 60]
+Linked List after deletion of middle:
+[2, 1, 3, 6, 7, 60]
+
+case=t3
+input=1
+50
+output=
+Original Linked List:
+[50]
+Linked List after deletion of middle:
+[50]
+
+case=t4
+fail message="Hidden case"
+input=3
+1 2 3 
+output=
+Original Linked List:
+[1, 2, 3]
+Linked List after deletion of middle:
+[1, 3]
+
+
+
+PROGRAM:
+--------------
+
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        LinkedList<Integer> linkedList = new LinkedList<>();
+
+        int numElements = scanner.nextInt();
+
+        for (int i = 0; i < numElements; i++) {
+            linkedList.add(scanner.nextInt());
+        }
+
+        System.out.println("Original Linked List:");
+        System.out.println(linkedList);
+
+        deleteMiddle(linkedList);
+
+        System.out.println("Linked List after deletion of middle:");
+        System.out.println(linkedList);
+
+        scanner.close();
+    }
+
+    public static void deleteMiddle(LinkedList<Integer> list) {
+        if (list == null || list.size() <= 1) {
+            return;
+        }
+
+        int mid = list.size() / 2;
+
+        ListIterator<Integer> iterator = list.listIterator();
+
+        for (int i = 0; i < mid+1; i++) {
+            iterator.next();
+        }
+
+        iterator.remove();
+    }
+}
+
+
+/*The list.remove(mid) operation has to traverse the list to find the element at the specified index, 
+which takes O(n) time complexity. On the other hand, 
+using an Iterator to reach the middle element directly takes O(n/2) time complexity, which is more efficient.
+*/
+
+6. Implement a Generic CLL (circular linked list) in java using OOps concepts.
+
+Test cases:
+--------------
+
+
+PROGRAM:
+----------------------------------
+public class CLL<E> {
+    private Node<E> head;
+    private int size;
+
+    private static class Node<E> {
+        E data;
+        Node<E> next;
+
+        Node(E data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public CLL() {
+        this.head = null;
+        this.size = 0;
+    }
+
+    public void add(E data) {
+        Node<E> newNode = new Node<>(data);
+        if (head == null) {
+            head = newNode;
+            head.next = head; // Circular link to itself
+        } else {
+            Node<E> temp = head;
+            while (temp.next != head) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.next = head; // Make the new node point to the head
+        }
+        size++;
+    }
+    public void remove(E value) {
+        if (head == null) {
+            return;                                   // List is empty, nothing to remove
+        }
+
+        if (head.data.equals(value)) {               //if we are deleting first node
+            if (size == 1) {
+                head = null;                         // Remove the only node in the list
+            } else {
+                Node<E> temp = head;
+                while (temp.next != head) {
+                    temp = temp.next;
+                }
+                temp.next = head.next;                // Update the last node's next pointer
+                head = head.next;                     // Update the head to the next node
+            }
+            size--;
+            return;
+        }
+
+        Node<E> cur = head;
+        Node<E> prev = null;
+
+        do {                                            //if we are deleting any other node
+            if (cur.data.equals(value)) {
+                prev.next = cur.next;    // Remove the current node
+                size--;
+                return;
+            }
+            prev = cur;
+            cur = cur.next;
+        } while (cur != null && cur != head);
+    }
+
+
+    public void display() {
+        Node<E> temp = head;
+        if (temp != null) {
+            do {
+                System.out.print(temp.data + " ");
+                temp = temp.next;
+            } while (temp != null && temp != head);
+        }
+        System.out.println();
+    }
+
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        CLL<Integer> cll = new CLL<>();
+        cll.add(3);
+        cll.add(5);
+        cll.add(7);
+        cll.add(6);
+
+        System.out.println("Circular Linked List:");
+        cll.display();
+        System.out.println("Size: " + cll.size());
+
+        // Reverse the circular linked list using recursion
+
+        cll.remove(6);
+
+        System.out.println("Linked List after removal of node with value 6:");
+        cll.display();
+        System.out.println("Size: " + cll.size());
+    }
+}
+
+
+
+    /*public boolean search(E value) {
+        Node<E> temp = head;
+        do {
+            if (temp.data.equals(value)) {
+                return true; // Value found
+            }
+            temp = temp.next;
+        } while (temp != head);
+        return false; // Value not found
+    }
+    int searchValue = 3;
+    boolean found = circularList.search(searchValue);
+        System.out.println("Is " + searchValue + " present? " + found);*/
+
+7. Read as many elements as you want to in an arraylist once done press quit in the next line.
+And find the sum of elements between largest and second largest numbers in the given arraylist.
+
+observe all the given test cases before solving.
+
+test case examples:
+-------------------------
+case=t1
+input=5 3 2 1 4
+quit
+output=
+Sum between the largest and second-largest numbers: 6
+
+case=t2
+input=4 2 1 3 5
+quit
+output=
+Sum between the largest and second-largest numbers: 6
+
+case=t3
+input=2 1 6 7 8 9 5 4 10
+quit
+output=
+Sum between the largest and second-largest numbers: 9
+
+case=t5
+input=1 4 8 10
+quit
+output=
+Sum between the largest and second-largest numbers: 0
+
+case=t6
+input=10
+quit
+output=
+At least two distinct numbers are required.
+
+case=t7
+fail message="hidden case"
+input=1 2 3 4 5 6 7
+quit
+output=
+Sum between the largest and second-largest numbers: 0
+
+case=t8
+input=2 2 2 2 2 
+quit
+output=
+Sum between the largest and second-largest numbers: 0
+
+case=t9
+input=2 3 1 2 2 2 2 2 2 4
+quit
+output=
+Sum between the largest and second-largest numbers: 13
+
+
+PROGRAM:
+--------------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> numbers = new ArrayList<>();
+
+      //  System.out.println("Enter the elements of the list (enter a non-integer to stop):");
+        while (sc.hasNextInt()) {
+            numbers.add(sc.nextInt());
+        }
+        if (numbers.size() < 2) {
+            System.out.println("At least two distinct numbers are required.");
+            return;
+        }
+        int Big = 0;
+        int secondBig = -1;
+
+        for (int i = 1; i < numbers.size(); i++) {
+            if (numbers.get(i) > numbers.get(Big)) {
+                secondBig = Big;
+                Big = i;
+            } else if (secondBig == -1 || numbers.get(i) > numbers.get(secondBig)) {
+                secondBig = i;
+            }
+        }
+        int sum = 0;
+
+        int k=Big<secondBig?Big:secondBig;
+     
+        for(int i=k+1;i<Big+secondBig-k;i++)
+        sum=sum+numbers.get(i);
+
+        System.out.println("Sum between the largest and second-largest numbers: " + sum);
+    }
+}
+
+
+8. Given an array arr[] of size N having integer elements,
+return the maximum continuous increasing prime sum.
+
+test Case Example:
+------------------------------------
+case=t1
+input=8
+3 2 5 6 3 7 11 9
+output=
+Maximum continuous increasing prime sum is 21
+
+case=t2
+input=9
+2 3 5 3 7 5 2 7 5
+output=
+Maximum continuous increasing prime sum is 10
+
+case=t3
+fail message="hidden case"
+input=5
+1 0 2 3 5 9
+output=
+Maximum continuous increasing prime sum is 10
+
+PROGRAM:
+--------------------------
+import java.util.*; // 2 3 5 3 7
+
+public class Solution {
+	public static void main(String[] args) {
+	    Scanner in = new Scanner(System.in);
+	    int n = in.nextInt();
+        int[] ar = new int[n];
+        int max = Integer.MIN_VALUE;
+	    for(int i = 0; i < n; i++) {
+	        ar[i] = in.nextInt();
+	       max = Math.max(max, ar[i]);
+	    }
+	    boolean[] primes = new boolean[max + 1];
+	    sieve(primes);
+	    int currSum = 0, maxSum = 0;
+	    if(primes[ar[0]]) {
+	        currSum = maxSum = ar[0];
+	    }
+		for(int i = 1; i < n; i++) {
+		    if(primes[ar[i]] && primes[ar[i - 1]] && (ar[i] > ar[i - 1])) {
+		        currSum += ar[i];
+		    } else {
+		        currSum = 0;
+		        if(primes[ar[i]]) currSum = ar[i];
+		    }
+		    maxSum = Math.max(currSum, maxSum);
+		}
+		System.out.println("Maximum continuous increasing prime sum is " + maxSum);
+	}
+	
+	static void sieve(boolean[] primes) {
+	    int n = primes.length;
+	    Arrays.fill(primes, true);
+	    primes[0] = primes[1] = false;
+	    for(int i = 2; i * i <= n; i++) {
+	        if(primes[i]) {
+	            for(int j = i * i; j < n; j += i) {
+	                primes[j] = false;
+	            }
+	        }
+	    }
+	}
+}
+
